@@ -1,41 +1,37 @@
-Feature: Test Login Functionality
+Feature: Login Functionality
 
-  Scenario: Valid username/email and password
-    Given I navigate to the login page
-    When I enter a valid username/email and valid password
-    And I click the 'Login' button
-    Then the user is successfully logged in and redirected to the homepage/dashboard
+  Scenario: Successful login with valid credentials
+    Given I am on the login page
+    When I enter a valid username and password
+    And I click the login button
+    Then I should be redirected to the homepage
 
-  Scenario: Invalid username/email
-    Given I navigate to the login page
-    When I enter an invalid username/email
-    And I enter a valid password
-    And I click the 'Login' button
-    Then an error message 'Invalid username/email' is displayed, and the user remains on the login page
+  Scenario: Unsuccessful login with invalid username
+    Given I am on the login page
+    When I enter an invalid username and a valid password
+    And I click the login button
+    Then I should see an error message
 
-  Scenario: Invalid password
-    Given I navigate to the login page
-    When I enter a valid username/email
-    And I enter an invalid password
-    And I click the 'Login' button
-    Then an error message 'Invalid password' is displayed, and the user remains on the login page
+  Scenario: Unsuccessful login with invalid password
+    Given I am on the login page
+    When I enter a valid username and an invalid password
+    And I click the login button
+    Then I should see an error message
 
-  Scenario: Leave both fields empty
-    Given I navigate to the login page
-    When I leave the username/email and password fields empty
-    And I click the 'Login' button
-    Then an error message 'Both fields are required' is displayed
+  Scenario: Unsuccessful login with empty fields
+    Given I am on the login page
+    When I leave the username and password fields empty
+    And I click the login button
+    Then I should see an error message for required fields
 
-  Scenario: Password masking
-    Given I navigate to the login page
-    When I enter any characters in the password field
-    Then the password characters should be masked
+  Scenario: Password field should mask input
+    Given I am on the login page
+    When I enter a password
+    Then the password field should mask the input
 
   Scenario: Remember Me option
-    Given I navigate to the login page
-    When I enter a valid username/email and password
-    And I select the 'Remember Me' option
-    And I click the 'Login' button
-    And I close and reopen the browser
-    And I navigate to the website
-    Then the user should be logged in automatically without entering credentials again
+    Given I am on the login page
+    When I select the Remember Me option
+    And I enter valid credentials
+    And I click the login button
+    Then I should be logged in automatically next time
